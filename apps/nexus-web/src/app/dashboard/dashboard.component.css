@@ -1,0 +1,521 @@
+.dashboard-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.vignette-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+  z-index: 1;
+}
+
+/* ---------------- Sidebar ---------------- */
+.sidebar {
+  position: relative;
+  width: 232px;
+  flex-shrink: 0;
+  margin: 16px 0 16px 16px;
+  border-radius: var(--radius-panel-lg);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  z-index: 10;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-word {
+  font-weight: var(--font-weight-bold);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  background: linear-gradient(120deg, #fff, var(--color-accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar-section {
+  margin-bottom: 18px;
+}
+
+.sidebar-section-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-semibold);
+  padding: 0 10px 6px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-element-sm);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: var(--transition-micro);
+}
+
+.sidebar-icon {
+  display: flex;
+  align-items: center;
+  opacity: 0.75;
+}
+
+.sidebar-item.active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-item.active .sidebar-icon {
+  opacity: 1;
+  color: #fff;
+}
+
+.sidebar-item:hover {
+  background: rgba(217, 43, 43, 0.14);
+  color: #fff;
+}
+
+.sidebar-item:hover .sidebar-icon {
+  color: var(--color-accent-primary);
+}
+
+.sidebar-footer {
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.invite-btn {
+  width: 100%;
+  padding: 9px;
+  font-size: 12px;
+}
+
+/* ---------------- Main content ---------------- */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  min-width: 0;
+  z-index: 10;
+}
+
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-radius: var(--radius-panel-md);
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--text-tracking-tighter);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-micro);
+}
+
+.icon-btn:hover {
+  background: rgba(217, 43, 43, 0.22);
+  color: #fff;
+}
+
+.new-project-btn {
+  padding: 9px 16px;
+  font-size: 13px;
+  margin-left: 6px;
+}
+
+.new-project-btn:hover {
+  background: rgba(217, 43, 43, 0.28);
+  box-shadow: 0 0 18px rgba(217, 43, 43, 0.35);
+}
+
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  border-radius: var(--radius-panel-md);
+  overflow-x: auto;
+}
+
+.tab-item {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  padding: 8px 14px;
+  border-radius: var(--radius-element-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-micro);
+  font-family: inherit;
+}
+
+.tab-item:hover {
+  color: #fff;
+  background: rgba(217, 43, 43, 0.16);
+}
+
+.tab-item.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.table-panel {
+  flex: 1;
+  border-radius: var(--radius-panel-lg);
+  overflow: auto;
+  padding: 4px;
+}
+
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projects-table thead th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-semibold);
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  background: rgba(20, 18, 30, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.projects-table tbody td {
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.project-name-cell {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.status-chip[data-status="On Track"] { background: rgba(50, 215, 75, 0.15); color: var(--color-accent-success); }
+.status-chip[data-status="At Risk"] { background: rgba(255, 214, 10, 0.15); color: var(--color-accent-warning); }
+.status-chip[data-status="Delayed"] { background: rgba(255, 69, 58, 0.15); color: var(--color-accent-danger); }
+.status-chip[data-status="Completed"] { background: rgba(255, 255, 255, 0.12); color: var(--color-text-primary); }
+
+.empty-state {
+  text-align: center;
+  padding: 64px 20px !important;
+  color: var(--color-text-tertiary);
+}
+
+.empty-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.empty-title {
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.empty-subtitle {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+/* ---------------- Quick Start widget ---------------- */
+.quick-start {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  border-radius: var(--radius-panel-lg);
+  padding: 18px;
+  z-index: 10001;
+  transition: var(--transition-panel);
+}
+
+.quick-start.minimized {
+  width: 220px;
+  padding: 12px 16px;
+}
+
+.quick-start-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.qs-title {
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.qs-subtitle {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+.qs-minimize-btn {
+  font-size: 11px;
+  padding: 5px 10px;
+  flex-shrink: 0;
+}
+
+.qs-progress-track {
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.qs-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+  border-radius: var(--radius-pill);
+  transition: width 0.4s var(--spring-easing);
+}
+
+.qs-progress-label {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  margin-top: 6px;
+}
+
+.qs-steps {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+
+.qs-steps::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge (Chromium) */
+}
+
+.qs-steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+  padding: 7px 0;
+  position: relative;
+}
+
+.qs-step-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+/* ---------------- Sidebar open/close behavior ---------------- */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-brand-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-close-btn {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-open-btn {
+  flex-shrink: 0;
+}
+
+/* Desktop: sidebar collapses in-place (main content reflows to fill) */
+.sidebar {
+  transition: margin-left var(--spring-duration-panel) var(--spring-easing),
+              opacity var(--spring-duration-panel) var(--spring-easing);
+}
+
+.sidebar.sidebar-closed {
+  margin-left: -248px; /* width + margin, fully off-canvas */
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ---------------- Responsive breakpoints ---------------- */
+
+/* Tablet: table gets a guaranteed min-width so columns scroll instead of
+   crushing illegibly; sidebar still collapsible as on desktop. */
+@media (max-width: 1024px) {
+  .projects-table {
+    min-width: 720px;
+  }
+}
+
+/* Mobile / small tablet: sidebar becomes a full-height overlay drawer
+   instead of pushing content, with a backdrop to close it. */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    height: 100vh;
+    border-radius: 0;
+    z-index: 10050;
+    transition: transform var(--spring-duration-panel) var(--spring-easing),
+                opacity var(--spring-duration-panel) var(--spring-easing);
+  }
+
+  .sidebar.sidebar-closed {
+    margin-left: 0;
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+    z-index: 10040;
+  }
+
+  .main-content {
+    padding: 12px;
+  }
+
+  .quick-start {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+
+  .quick-start.minimized {
+    width: auto;
+    max-width: 220px;
+    margin-left: auto;
+  }
+}
+
+/* Narrow phones: trim the header down further */
+@media (max-width: 560px) {
+  .content-header {
+    padding: 10px 14px;
+  }
+
+  .page-title {
+    font-size: 15px;
+  }
+
+  .header-actions .icon-btn:nth-of-type(1),
+  .header-actions .icon-btn:nth-of-type(2) {
+    display: none; /* hide search + notifications, keep settings + New Project */
+  }
+
+  .new-project-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .tab-bar {
+    justify-content: flex-start;
+  }
+
+  .tab-item {
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+}

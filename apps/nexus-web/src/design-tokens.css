@@ -1,0 +1,189 @@
+/* ==========================================================================
+   LIQUID GLASS DESIGN SYSTEM - TOKENS
+   iOS-Inspired, pure CSS custom properties
+   ========================================================================== */
+
+:root {
+  /* ----------------------------------------------------------------------
+     1. TYPOGRAPHY
+     ---------------------------------------------------------------------- */
+  --font-stack-primary: -apple-system, "SF Pro Display", "SF Pro Text", Inter, system-ui, sans-serif;
+  
+  --text-tracking-tight: -0.015em;
+  --text-tracking-tighter: -0.022em;
+  
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 590; /* SF Pro signature weight */
+  --font-weight-bold: 700;
+
+  /* ----------------------------------------------------------------------
+     2. COLORS & THEME (Dark Mode Default)
+     ---------------------------------------------------------------------- */
+  /* Base App Background (Mesh gradient backdrop) */
+  --color-bg-base: #060505;
+  --color-bg-mesh-1: #2b0a0a;
+  --color-bg-mesh-2: #1a0606;
+  --color-bg-mesh-3: #3d0d0d;
+
+  /* Text Colors */
+  --color-text-primary: rgba(255, 255, 255, 0.95);
+  --color-text-secondary: rgba(255, 255, 255, 0.65);
+  --color-text-tertiary: rgba(255, 255, 255, 0.4);
+
+  /* Accents */
+  --color-accent-primary: #d92b2b;
+  --color-accent-secondary: #ff5c4d;
+  --color-accent-success: #32d74b;
+  --color-accent-warning: #ffd60a;
+  --color-accent-danger: #ff453a;
+
+  /* ----------------------------------------------------------------------
+     3. LIQUID GLASS FOUNDATIONS
+     ---------------------------------------------------------------------- */
+  
+  /* Blurs & Filters */
+  --glass-blur-base: blur(20px) saturate(180%);
+  --glass-blur-hover: blur(24px) saturate(200%);
+  --glass-brightness-hover: brightness(1.08);
+
+  /* Background Fills */
+  --glass-fill-elevation-1: rgba(255, 255, 255, 0.06);
+  --glass-fill-elevation-2: rgba(255, 255, 255, 0.08);
+  --glass-fill-elevation-3: rgba(255, 255, 255, 0.12);
+
+  /* Borders (Gradients used via pseudo-elements or border-image) */
+  --glass-border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.05));
+  --glass-border-inset-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+  /* Drop Shadows (Layered depth) */
+  --glass-shadow-elevation-1: 0 4px 16px rgba(0, 0, 0, 0.15), var(--glass-border-inset-highlight);
+  --glass-shadow-elevation-2: 0 8px 32px rgba(0, 0, 0, 0.28), var(--glass-border-inset-highlight);
+  --glass-shadow-elevation-3: 0 16px 48px rgba(0, 0, 0, 0.4), var(--glass-border-inset-highlight);
+
+  /* ----------------------------------------------------------------------
+     4. RADII (Superellipse approximations)
+     ---------------------------------------------------------------------- */
+  --radius-panel-lg: 28px;
+  --radius-panel-md: 20px;
+  --radius-element-md: 14px;
+  --radius-element-sm: 12px;
+  --radius-pill: 9999px;
+
+  /* ----------------------------------------------------------------------
+     5. MOTION & SPRING PHYSICS
+     ---------------------------------------------------------------------- */
+  --spring-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --spring-duration-micro: 150ms; /* Interactive elements: 120-180ms */
+  --spring-duration-panel: 350ms; /* Panel opens: 300-400ms */
+
+  --transition-micro: all var(--spring-duration-micro) var(--spring-easing);
+  --transition-panel: all var(--spring-duration-panel) var(--spring-easing);
+}
+
+/* ==========================================================================
+   UTILITY CLASSES (Implementing the tokens)
+   ========================================================================== */
+
+/* Flat black background — no colored gradient wash. Color only appears
+   on hover/interaction, not at rest. */
+.mesh-backdrop {
+  background-color: #000000;
+  background-image: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-stack-primary);
+  letter-spacing: var(--text-tracking-tight);
+}
+
+/* Typography Utilities */
+.text-heading {
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--text-tracking-tighter);
+}
+
+/* Glass Panel (Elevation 2 - Default for floating windows) */
+.glass-panel {
+  background: var(--glass-fill-elevation-2);
+  backdrop-filter: var(--glass-blur-base);
+  -webkit-backdrop-filter: var(--glass-blur-base);
+  border-radius: var(--radius-panel-md);
+  box-shadow: var(--glass-shadow-elevation-2);
+  position: relative;
+  transition: var(--transition-micro);
+  /* The gradient inset border hack */
+}
+
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--glass-border-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.glass-panel:hover, 
+.glass-panel:focus-within {
+  filter: var(--glass-brightness-hover);
+  backdrop-filter: var(--glass-blur-hover);
+  -webkit-backdrop-filter: var(--glass-blur-hover);
+}
+
+/* Glass Button (Elevation 1) */
+.glass-btn {
+  background: var(--glass-fill-elevation-1);
+  backdrop-filter: var(--glass-blur-base);
+  -webkit-backdrop-filter: var(--glass-blur-base);
+  border-radius: var(--radius-element-md);
+  box-shadow: var(--glass-shadow-elevation-1);
+  position: relative;
+  transition: var(--transition-micro);
+  color: var(--color-text-primary);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: var(--font-weight-medium);
+}
+
+.glass-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--glass-border-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.glass-btn:hover {
+  filter: var(--glass-brightness-hover);
+  backdrop-filter: var(--glass-blur-hover);
+  -webkit-backdrop-filter: var(--glass-blur-hover);
+  background: rgba(217, 43, 43, 0.22);
+  box-shadow: 0 0 18px rgba(217, 43, 43, 0.3), var(--glass-border-inset-highlight);
+  color: #fff;
+}
+
+/* Live Collab Cursor (Glass Pill) */
+.glass-cursor-pill {
+  background: var(--glass-fill-elevation-3);
+  backdrop-filter: var(--glass-blur-base);
+  -webkit-backdrop-filter: var(--glass-blur-base);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 12px var(--cursor-color, var(--color-accent-primary)), var(--glass-border-inset-highlight);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-semibold);
+  padding: 4px 12px;
+  transition: var(--transition-micro);
+  /* The glow effect */
+  filter: drop-shadow(0 0 8px var(--cursor-color, rgba(94, 92, 230, 0.4)));
+}

@@ -1,0 +1,152 @@
+<div class="mesh-backdrop dashboard-root">
+  <div class="vignette-overlay"></div>
+
+  <!-- Backdrop, shown only when sidebar is open as an overlay on mobile -->
+  <div class="sidebar-backdrop" *ngIf="sidebarOpen && isMobile" (click)="toggleSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar glass-panel" [class.sidebar-open]="sidebarOpen" [class.sidebar-closed]="!sidebarOpen">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-left">
+        <svg class="brand-mark" viewBox="0 0 40 40" width="26" height="26" aria-hidden="true">
+          <defs>
+            <linearGradient id="sbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--color-accent-primary)" />
+              <stop offset="100%" stop-color="var(--color-accent-secondary)" />
+            </linearGradient>
+          </defs>
+          <rect x="1" y="1" width="38" height="38" rx="11" fill="url(#sbGrad)" opacity="0.18" />
+          <path d="M13 28V12h3.2L24 22.4V12h3v16h-3.2L16 17.6V28h-3z" fill="url(#sbGrad)" />
+        </svg>
+        <span class="brand-word">NEXUS</span>
+      </div>
+      <button class="icon-btn sidebar-close-btn" title="Close sidebar" aria-label="Close sidebar" (click)="toggleSidebar()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section" *ngFor="let section of sidebarSections">
+        <div class="sidebar-section-title" *ngIf="section.title">{{ section.title }}</div>
+        <a class="sidebar-item" *ngFor="let item of section.items" [class.active]="item.active">
+          <span class="sidebar-icon" [ngSwitch]="item.icon">
+            <svg *ngSwitchCase="'home'" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 11.5 12 4l8 7.5M6 10v9h5v-5h2v5h5v-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg *ngSwitchCase="'projects'" width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 9h16" stroke="currentColor" stroke-width="1.6"/></svg>
+            <svg *ngSwitchCase="'users'" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 8a3 3 0 1 1 3 3M21 20c0-2.5-1.7-4.6-4-5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <svg *ngSwitchCase="'chat'" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 1 1-3.4-6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 20l1.2-3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <svg *ngSwitchCase="'check'" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 7 10 17l-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg *ngSwitchCase="'task'" width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 12l2.5 2.5L16 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg *ngSwitchCase="'issue'" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3 2 20h20L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <svg *ngSwitchCase="'phase'" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h10M4 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <svg *ngSwitchCase="'clock'" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <svg *ngSwitchCase="'sheet'" width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 9h16M9 9v12" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          {{ item.label }}
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="glass-btn invite-btn">Invite Users</button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <header class="content-header glass-panel">
+      <div class="header-left">
+        <button
+          class="icon-btn sidebar-open-btn"
+          *ngIf="!sidebarOpen"
+          title="Open sidebar"
+          aria-label="Open sidebar"
+          (click)="toggleSidebar()"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="page-title">Projects</div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" title="Search" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" title="Notifications" aria-label="Notifications">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 8a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 20a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.6"/></svg>
+        </button>
+        <button class="icon-btn" title="Settings" aria-label="Settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 2h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 22h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="glass-btn new-project-btn">+ New Project</button>
+      </div>
+    </header>
+
+    <nav class="tab-bar glass-panel">
+      <button
+        class="tab-item"
+        *ngFor="let tab of projectTabs"
+        [class.active]="tab === activeTab"
+        (click)="activeTab = tab"
+      >
+        {{ tab }}
+      </button>
+    </nav>
+
+    <div class="table-panel glass-panel">
+      <table class="projects-table">
+        <thead>
+          <tr>
+            <th *ngFor="let col of columns">{{ col }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="projects.length === 0">
+            <td [attr.colspan]="columns.length" class="empty-state">
+              <div class="empty-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.4" opacity="0.5"/><path d="M8 13l2.5 2.5L16 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg>
+              </div>
+              <div class="empty-title">No projects yet</div>
+              <div class="empty-subtitle">Generate your first project to see it appear here.</div>
+            </td>
+          </tr>
+          <tr *ngFor="let p of projects">
+            <td>{{ p.id }}</td>
+            <td class="project-name-cell">{{ p.name }}</td>
+            <td>{{ p.percent }}%</td>
+            <td>{{ p.owner }}</td>
+            <td><span class="status-chip" [attr.data-status]="p.status">{{ p.status }}</span></td>
+            <td>{{ p.tasks }}</td>
+            <td>{{ p.phases }}</td>
+            <td>{{ p.issues }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Quick Start widget -->
+  <div class="quick-start glass-panel" [class.minimized]="quickStartMinimized">
+    <div class="quick-start-header">
+      <div>
+        <div class="qs-title">Quick Start Walkthrough</div>
+        <div class="qs-subtitle" *ngIf="!quickStartMinimized">Take an interactive tour of Nexus</div>
+      </div>
+      <button class="glass-btn qs-minimize-btn" (click)="quickStartMinimized = !quickStartMinimized">
+        {{ quickStartMinimized ? 'Expand' : 'Minimize' }}
+      </button>
+    </div>
+
+    <ng-container *ngIf="!quickStartMinimized">
+      <div class="qs-progress-track">
+        <div class="qs-progress-fill" [style.width.%]="quickStartProgress"></div>
+      </div>
+      <div class="qs-progress-label">{{ quickStartProgress }}%</div>
+
+      <ul class="qs-steps">
+        <li *ngFor="let step of quickStartSteps">
+          <span class="qs-step-dot"></span>
+          {{ step }}
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+@import './design-tokens.css';
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-base);
+  background-image: 
+    radial-gradient(at 0% 0%, var(--color-bg-mesh-1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, var(--color-bg-mesh-2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, var(--color-bg-mesh-3) 0px, transparent 50%);
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--color-text-primary);
+  font-family: var(--font-stack-primary);
+  letter-spacing: var(--text-tracking-tight);
+}

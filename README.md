@@ -1,96 +1,334 @@
-# Nexus
+# Nexus – AI Project Planner
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+<p align="center">
+  <img src="https://img.shields.io/badge/Angular-21-red?style=for-the-badge&logo=angular">
+  <img src="https://img.shields.io/badge/NestJS-Backend-e0234e?style=for-the-badge&logo=nestjs">
+  <img src="https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb">
+  <img src="https://img.shields.io/badge/Google-Gemini-blue?style=for-the-badge&logo=google">
+  <img src="https://img.shields.io/badge/TypeScript-5.x-blue?style=for-the-badge&logo=typescript">
+  <img src="https://img.shields.io/badge/Nx-Monorepo-143055?style=for-the-badge&logo=nx">
+</p>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+<p align="center">
+AI-powered software project planning platform that transforms natural language ideas into structured engineering artifacts.
+</p>
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Run tasks
+# Overview
 
-To run tasks with Nx use:
+Nexus is an AI-powered software project planning platform designed to automate the early stages of software development.
 
-```sh
-npx nx <target> <project-name>
+Instead of manually creating architecture diagrams, API documentation, database schemas, development timelines, and task breakdowns, Nexus generates them intelligently from a single natural language prompt using Google's Gemini AI.
+
+The platform follows a modular generation pipeline where each engineering artifact is independently generated, streamed to the client in real time, persisted in MongoDB, and can later be updated without regenerating the complete project.
+
+---
+
+# Key Highlights
+
+- AI-powered software planning
+- Modular AI generation pipeline
+- Real-time artifact streaming using Server-Sent Events (SSE)
+- Live collaboration using WebSockets
+- Incremental AI editing of individual project nodes
+- MongoDB persistence with Mongoose
+- Gemini API integration with automatic key rotation
+- Concurrency-controlled generation pipeline
+- Version-aware project artifacts
+- Nx Monorepo architecture
+- Angular + NestJS full-stack application
+- Scalable service-oriented backend architecture
+
+---
+
+# Features
+
+## AI Project Generation
+
+Generate complete software planning artifacts from a single prompt.
+
+Example:
+
+> Build an online food delivery application similar to Swiggy.
+
+Nexus automatically generates:
+
+- Database Schema
+- REST API Documentation
+- Folder Structure
+- Development Timeline
+- Task Breakdown
+- Team Assignment
+
+---
+
+## Intelligent Modular Generation
+
+Each engineering domain is generated independently.
+
+Instead of producing one massive AI response, Nexus creates modular artifacts that can evolve separately.
+
+This architecture improves:
+
+- Maintainability
+- AI response quality
+- Future extensibility
+
+---
+
+## Real-Time Streaming
+
+Generated artifacts are streamed immediately to the frontend using Server-Sent Events.
+
+Users can begin viewing results while the remaining artifacts are still being generated.
+
+---
+
+## AI Node Editing
+
+Modify any individual project artifact through natural language.
+
+Example:
+
+> Replace MongoDB with PostgreSQL
+
+Only the affected node is regenerated.
+
+The complete project is never rebuilt unnecessarily.
+
+---
+
+## Live Collaboration
+
+WebSockets synchronize project updates across connected clients.
+
+Multiple users can collaborate while keeping project data synchronized in real time.
+
+---
+
+## Version Tracking
+
+Every generated artifact maintains:
+
+- Node ID
+- Version
+- Parent Version
+
+This lays the foundation for rollback support, history tracking, and intelligent change management.
+
+---
+
+## Persistent Storage
+
+Projects and generated artifacts are stored in MongoDB immediately after generation.
+
+Nothing exists only in memory.
+
+---
+
+## Rate Limit Handling
+
+Nexus includes a resilient AI request pipeline featuring:
+
+- Gemini API key rotation
+- Automatic retry logic
+- Controlled concurrency
+- Rate limit handling
+
+This allows reliable generation even under free-tier API limitations.
+
+---
+
+# Architecture
+
+```
+                 User Prompt
+                      │
+                      ▼
+             Prompt Parser Service
+                      │
+                      ▼
+            Project Assembler Service
+                      │
+        ┌─────────────┴─────────────┐
+        │                           │
+        ▼                           ▼
+   AI Generation Pipeline      MongoDB Storage
+        │
+        ▼
+     Google Gemini
+        │
+        ▼
+ Generated Engineering Artifacts
+        │
+        ▼
+ Server Sent Events (SSE)
+        │
+        ▼
+ Angular Frontend
 ```
 
-For example:
+---
 
-```sh
-npx nx build myproject
+# Tech Stack
+
+## Frontend
+
+- Angular
+- TypeScript
+- CSS
+- Standalone Components
+
+## Backend
+
+- NestJS
+- Express
+- REST APIs
+- WebSockets
+- Server-Sent Events (SSE)
+
+## Database
+
+- MongoDB
+- Mongoose
+
+## AI
+
+- Google Gemini
+- Structured JSON prompting
+- Multi-key API rotation
+
+## Monorepo
+
+- Nx Workspace
+
+---
+
+# Project Structure
+
+```
+apps/
+│
+├── nexus-api
+│   ├── controllers
+│   ├── dto
+│   ├── gateway
+│   ├── schemas
+│   ├── services
+│   └── ai-provider
+│
+├── nexus-web
+│   ├── dashboard
+│   ├── workspace
+│   ├── architecture-graph
+│   ├── gantt
+│   ├── collaboration
+│   └── services
+│
+libs/
+└── shared-types
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+---
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# How It Works
 
-## Add new projects
+1. User enters a project idea.
+2. Prompt Parser determines the required engineering domains.
+3. AI generation begins.
+4. Artifacts are streamed progressively using SSE.
+5. Each artifact is stored in MongoDB.
+6. Users can edit any artifact individually.
+7. Updates are synchronized using WebSockets.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+---
 
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
+# Getting Started
+
+## Clone Repository
+
+```bash
+git clone https://github.com/shivam31704/Nexus---AI-Project-Planner.git
+
+cd Nexus---AI-Project-Planner
 ```
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+---
 
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
+## Install Dependencies
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
+```bash
+npm install
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+---
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Environment Variables
 
-## Set up CI!
+Create a `.env` file inside the backend.
 
-### Step 1
+```
+MONGODB_URI=
 
-To connect to Nx Cloud, run the following command:
+GEMINI_API_KEY=
 
-```sh
-npx nx connect
+GEMINI_API_KEYS=
+
+GEMINI_MODEL=gemini-2.0-flash
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+---
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Start Backend
 
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
+```bash
+nx serve nexus-api
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-## Install Nx Console
+## Start Frontend
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+```bash
+nx serve nexus-web
+```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-## Useful links
+# Future Enhancements
 
-Learn more:
+- Authentication & Authorization
+- Project Export (PDF / Markdown)
+- GitHub Integration
+- Jira Integration
+- Docker Deployment
+- CI/CD Pipeline
+- Project Templates
+- AI Chat Assistant
+- Multi-project Workspace
+- Architecture Visualization
+- Version Rollback
+- Team Management
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# Why Nexus?
+
+Modern software projects require significantly more than writing code.
+
+Planning architecture, defining APIs, designing databases, organizing timelines, and coordinating development are equally important.
+
+Nexus accelerates this process by combining modern AI capabilities with a modular engineering workflow, enabling teams to move from idea to implementation planning in minutes instead of hours.
+
+---
+
+# Author
+
+**Shivam Kaushik**
+
+Computer Science Engineer • Full Stack Developer • AI Enthusiast
+
+---
+
+If you found this project interesting, consider giving it a ⭐ on GitHub.
